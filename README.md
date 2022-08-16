@@ -27,3 +27,6 @@ Algoritm applied :-
 
 Loan Approval Prediction:
 EDA + Decision Tree, Random Forest & Logistic Regression Modeling
+
+
+![Target Sample](img/Samples.png)
