@@ -1,4 +1,4 @@
-# Loan_Prediction
+# Loan Prediction
 
 ### Problem Statement:
 ### About Company
@@ -23,3 +23,9 @@ Loan_Amount_Term	          Term of loan in months
 Credit_History	            credit history meets guidelines
 Property_Area	              Urban/ Semi Urban/ Rural
 Loan_Status	                Loan approved (Y/N)
+
+
+Algoritm applied :- 
+
+Loan Approval Prediction:
+EDA + Decision Tree, Random Forest & Logistic Regression Modeling
