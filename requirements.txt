@@ -1,0 +1,6 @@
+numpy==1.23.2
+pandas==1.4.3
+sklearn==0.0
+xgboost==1.6.1
+lightgbm==3.3.2
+imblearn==0.0
