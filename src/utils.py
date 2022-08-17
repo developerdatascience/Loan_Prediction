@@ -1,6 +1,7 @@
 from statistics import mode
 import pandas as pd
-from typing import List
+import numpy as np
+from typing import List, Union
 
 
 class Exploratory:
@@ -20,8 +21,19 @@ class Exploratory:
         return self.df
     
 
-    def outlier_detection(self):
-        pass
+    def outlier_detection(self) -> List[str]:
+        outlier : List[Union[int, float]]
+        for c in self.df:
+            col_mean = self.df[c].mean()
+            std_dev = np.std(self.df[c])
+            z = (self.df[c] - col_mean)/std_dev
+            if (z > col_mean).any():
+                outlier.append(c)
+            print("mean of {} is {} and standard Deviation is {} ".format(c, col_mean,std_dev))    
+            print("outlier in {}".format(c), outlier)
+        return outlier
+
+    
     
         
 

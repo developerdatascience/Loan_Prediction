@@ -23,10 +23,10 @@ Property_Area	              Urban/ Semi Urban/ Rural
 Loan_Status	                Loan approved (Y/N)
 
 
-Algoritm applied :- 
+Distribution plot of numerical features
+![coapplicantincome](img/CoapplicantIncome.png)     ![credit_history](img/Credit_History.png)
+![Loan_Amount](img/LoanAmount.png)                  ![Loan_Amount_Term](img/Loan_Amount_Term.png)
 
-Loan Approval Prediction:
-EDA + Decision Tree, Random Forest & Logistic Regression Modeling
 
-
-![Target Sample](img/Samples.png)
+Our Target Variable is imbalance as can seen from plot:
+                        ![Target Sample](img/Samples.png)
