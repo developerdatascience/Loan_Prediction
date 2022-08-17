@@ -28,5 +28,6 @@ Distribution plot of numerical features
 ![Loan_Amount](img/LoanAmount.png)                  ![Loan_Amount_Term](img/Loan_Amount_Term.png)
 
 
+
 Our Target Variable is imbalance as can seen from plot:
-                        ![Target Sample](img/Samples.png)
+![Target Sample](img/Samples.png)
