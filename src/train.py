@@ -1,5 +1,6 @@
 import pandas as pd
 import os
+from utils import Exploratory
 
 from sklearn import preprocessing
 
@@ -31,7 +32,29 @@ if __name__ == "__main__":
         ytrain = df_train["Loan_Status"].values
         yvalid = df_valid["Loan_Status"].values
 
+        df_valid = df_valid[df_train.columns]
+
         cat_feats = df_train.columns[df_train.dtypes=="object"]
+        
+        exp = Exploratory(dataframe=df_train)
+        exp.missing_na()
+
+        label_encoder = dict()
+        for c in cat_feats:
+                lbl = preprocessing.LabelEncoder()
+                df_train.loc[:, c] = df_train.loc[:, c].astype(str).fillna("NONE")
+                df_valid.loc[:, c] = df_valid.loc[:, c].astype(str).fillna("NONE")
+                df_test.loc[:, c] = df_test.loc[:, c].astype(str).fillna("NONE")
+                lbl.fit(df_train[c].values.to_list()+
+                        df_valid[c].values.to_list()+
+                        df_test[c].values.to_list()
+                )
+                df_train.loc[:, c] = lbl.fit_transform(df_train[c].values)
+                df_test.loc[:, c] = lbl.fit_transform(df_test[c].values)
+                label_encoder[c] = lbl
+        
+        
+
 
         
 

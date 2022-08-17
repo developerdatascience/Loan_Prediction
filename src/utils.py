@@ -18,6 +18,7 @@ class Exploratory:
                 self.df[c] = self.df.loc[:, c].fillna(self.df.loc[:, c].mean())
             else:
                 raise Exception("Something went wrong!!")
+        print(self.df.isnull().sum())
         return self.df
     
 
