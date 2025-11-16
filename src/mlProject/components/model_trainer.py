@@ -1,8 +1,11 @@
 import logging
+import os
 import pandas as pd
+import joblib
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.model_selection import train_test_split
+from src.mlProject.entity.config_entity import ModelTrainerConfig
 from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import (
@@ -25,22 +28,21 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
 
-class ModelTrainingPipeline:
-    def __init__(self, data: pd.DataFrame, target_column: str):
+class DataModelTrainer:
+    def __init__(self, config: ModelTrainerConfig):
         """
         Initialize the ModelTrainingPipeline
 
         Args:
-            data (pd.DataFrame): input dataset
+            config (ModelTrainerConfig): config
             model (object): machine learning model
             target_column (str): name of the target column
         """
-        self.data = data
-        self.target_column = target_column
-        self.model = None
+        self.config = config
         self.standard_scaler = StandardScaler()
+        self.model = None
 
-    def divide_and_standardize_data(self, test_size: float = 0.2) -> Tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series]:
+    def _divide_and_standardize_data(self) -> Tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series]:
         """
         Divide the dataset into training and testing sets.
 
@@ -49,13 +51,14 @@ class ModelTrainingPipeline:
         Returns:
             Tuple containing training features, testing features, training labels, and testing labels.
         """
-        logger.info(f"Dividing data with test size = {test_size}")
+        logger.info(f"Dividing data with test size = {self.config.test_size}")
 
         # Implementation for dividing data goes here
-        X = self.data.drop(columns=self.target_column)
-        y = self.data[self.target_column]
+        data = pd.read_csv(self.config.train_data_path)
+        X = data.drop(columns=self.config.target_column, axis=1)
+        y = data[self.config.target_column]
 
-        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=42, stratify=y)
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=self.config.test_size, random_state=42, stratify=y)
         
         X_train = self.standard_scaler.fit_transform(X_train)
         X_test = self.standard_scaler.transform(X_test)
@@ -63,31 +66,36 @@ class ModelTrainingPipeline:
         return X_train, X_test, y_train, y_test # type: ignore
 
 
-    def train_model(self,model_name: str, X_train: pd.DataFrame, y_train: pd.Series) -> object:
+    def train_model(self,) -> object:
         """
         Train various machine learning models on the provided dataset.
         """
         logger.info("Starting model training pipeline.")
 
-        if model_name is None:
-            logger.error("Model not provided.")
+        X_train, X_test, y_train, y_test = self._divide_and_standardize_data()
+
+        if self.config.model_name is None:
+            logger.error("Model name not provided.")
             raise ValueError("Model must be provided for training.")
         
-        if model_name == "RandomForest":
+        if self.config.model_name.lower() == "randomforest":
             self.model = RandomForestClassifier(n_estimators=100, max_depth=10, random_state=42)
-        elif model_name == "XGBoost":
+        elif self.config.model_name.lower() == "xgboost":
             self.model = xgb.XGBClassifier(n_estimators=100, max_depth=10, learning_rate=0.1, random_state=42)
-        elif model_name == "LightGBM":
+        elif self.config.model_name.lower() == "lightgbm":
             self.model = lgb.LGBMClassifier(n_estimators=100, max_depth=10, learning_rate=0.1, random_state=42)
         else:
-            logger.error(f"Unsupported model provided: {model_name}")
-            raise ValueError(f"Unsupported model: {model_name}")
+            logger.error(f"Unsupported model provided: {self.config.model_name}")
+            raise ValueError(f"Unsupported model: {self.config.model_name}")
+        
+        logger.info(f"{self.config.model_name} saved at {self.config.root_dir}")
+        joblib.dump(self.model, os.path.join(self.config.root_dir, self.config.model_name+".joblib"))
 
         # reassure static type checkers that self.model is set
-        assert self.model is not None
+        # assert self.model is not None
 
         self.model.fit(X_train, y_train) 
-        logger.info(f"{model_name} model trained successfully.")
+        logger.info(f"{self.config.model_name} model trained successfully.")
 
         return self.model
     
@@ -157,16 +165,3 @@ class ModelTrainingPipeline:
         plt.close()
         
         return shap_values
-
-
-
-    def save_model(self, filepath: str) -> None:
-        """Save the trained model to a file.
-
-        Args:
-            filepath (str): The path where the model should be saved.
-        Returns:
-            None
-        """
-        joblib.dump(self.model, filepath)
-        logger.info(f"Model saved to {filepath}")

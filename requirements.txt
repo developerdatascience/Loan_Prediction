@@ -2,6 +2,7 @@ pandas
 numpy
 scipy
 sklearn
+mlflow
 matplotlib
 seaborn
 imblearn
@@ -9,3 +10,9 @@ xgboost
 lightgbm
 statsmodels
 stats
+python-box
+ensure
+pyYAML
+tqdm
+fastapi
+-e .

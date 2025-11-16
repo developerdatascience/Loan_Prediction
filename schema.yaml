@@ -1,0 +1,22 @@
+COLUMNS:
+    Current Loan Amount: float
+    Term: str
+    Credit Score: float
+    Annual Income: float
+    Years in current job: str
+    Home Ownership: str
+    Purpose: str
+    Monthly Debt: float
+    Years of Credit History: float
+    Months since last delinquent: float
+    Number of Open Accounts: float
+    Number of Credit Problems: float
+    Current Credit Balance: float
+    Maximum Open Credit: float
+    Bankruptcies: float
+    Tax Liens: float
+
+
+TARGET_COLUMN:
+  name: Loan Status
+  
