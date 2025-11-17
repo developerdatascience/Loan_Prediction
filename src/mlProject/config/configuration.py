@@ -3,7 +3,8 @@ from src.mlProject.utils.common import create_directories, read_yaml
 from src.mlProject.entity.config_entity import (DataIngesitonConfig, 
                                                   DataTransformationConfig,
                                                   DataValidationConfig,
-                                                  ModelTrainerConfig)
+                                                  ModelTrainerConfig,
+                                                  ModelEvaluationConfig)
 
 
 class ConfiguratonManager:
@@ -72,3 +73,20 @@ class ConfiguratonManager:
             target_column=target_column
         )
 
+    def get_data_model_evaluation_config(self) -> ModelEvaluationConfig:
+        config = self.config.model_evaluation
+
+        all_params = self.params.ElasticNet
+        target_column = self.schema.TARGET_COLUMN
+
+        create_directories([config.root_dir])
+
+        return ModelEvaluationConfig(
+            root_dir=config.root_dir,
+            test_data_path=config.test_data_path,
+            model_path=config.model_path,
+            all_params=all_params,
+            target_column=target_column.name,
+            metric_file_name=config.metric_file_name,
+            mlflow_uri="http://127.0.0.1:5000"
+            )

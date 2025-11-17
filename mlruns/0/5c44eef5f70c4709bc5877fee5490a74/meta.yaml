@@ -1,0 +1,14 @@
+artifact_uri: mlflow-artifacts:/0/5c44eef5f70c4709bc5877fee5490a74/artifacts
+end_time: 1763398185857
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 5c44eef5f70c4709bc5877fee5490a74
+run_name: carefree-shad-846
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1763398182744
+status: 3
+tags: []
+user_id: harendrakumar

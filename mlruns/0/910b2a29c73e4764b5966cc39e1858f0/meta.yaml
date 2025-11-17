@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/910b2a29c73e4764b5966cc39e1858f0/artifacts
+deleted_time: 1763398074078
+end_time: 1763395049713
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: deleted
+run_id: 910b2a29c73e4764b5966cc39e1858f0
+run_name: skittish-doe-538
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1763395046469
+status: 4
+tags: []
+user_id: harendrakumar

@@ -8,15 +8,6 @@ from sklearn.model_selection import train_test_split
 from src.mlProject.entity.config_entity import ModelTrainerConfig
 from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import (
-    accuracy_score, 
-    precision_score, 
-    recall_score, 
-    f1_score, 
-    classification_report, 
-    confusion_matrix,
-    roc_auc_score
-    )
 import xgboost as xgb
 import lightgbm as lgb
 import joblib
@@ -42,7 +33,7 @@ class DataModelTrainer:
         self.standard_scaler = StandardScaler()
         self.model = None
 
-    def _divide_and_standardize_data(self) -> Tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series]:
+    def divide_and_standardize_data(self) -> Tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series]:
         """
         Divide the dataset into training and testing sets.
 
@@ -72,7 +63,7 @@ class DataModelTrainer:
         """
         logger.info("Starting model training pipeline.")
 
-        X_train, X_test, y_train, y_test = self._divide_and_standardize_data()
+        X_train, X_test, y_train, y_test = self.divide_and_standardize_data()
 
         if self.config.model_name is None:
             logger.error("Model name not provided.")
@@ -88,61 +79,18 @@ class DataModelTrainer:
             logger.error(f"Unsupported model provided: {self.config.model_name}")
             raise ValueError(f"Unsupported model: {self.config.model_name}")
         
+        self.model.fit(X_train, y_train) 
+        logger.info(f"{self.config.model_name} model trained successfully.")
+        
         logger.info(f"{self.config.model_name} saved at {self.config.root_dir}")
-        joblib.dump(self.model, os.path.join(self.config.root_dir, self.config.model_name+".joblib"))
+        joblib.dump(self.model, os.path.join(self.config.root_dir, "model.joblib"))
 
         # reassure static type checkers that self.model is set
         # assert self.model is not None
 
-        self.model.fit(X_train, y_train) 
-        logger.info(f"{self.config.model_name} model trained successfully.")
 
         return self.model
     
-    def evaluate_model(self, X_test, y_test) -> Dict[str, Any]:
-        """Comprehensive model evaluation needed"""
-        y_pred = self.model.predict(X_test) # type: ignore
-
-        y_pred_proba = self.model.predict_proba(X_test)[:, 1] # type: ignore
-
-        accuracy = accuracy_score(y_test, y_pred) # type: ignore
-        precision = precision_score(y_test, y_pred, average='weighted') # type: ignore
-        recall = recall_score(y_test, y_pred, average='weighted') # type: ignore
-        f1 = f1_score(y_test, y_pred, average='weighted') # type: ignore
-
-        reports_path = Path('reports')
-        if not reports_path.exists():
-            reports_path.mkdir(parents=True, exist_ok=True)
-
-        logger.info("Confusion Matrix")
-        cm = confusion_matrix(y_test, y_pred)
-        plt.figure(figsize=(8, 6))
-        sns.heatmap(cm, annot=True, fmt='d', cmap='Blues')
-        plt.title('Confusion Matrix')
-        plt.ylabel('Actual')
-        plt.xlabel('Predicted')
-        plt.savefig('reports/confusion_matrix.png')
-        plt.close()
-
-        logger.info(f"Classification Report \n:{classification_report(y_test, y_pred)}") # type: ignore
-
-        logger.info(f"ROC AUC Score: {roc_auc_score(y_test, y_pred_proba):.4f}")
-        roc_auc_value= roc_auc_score(y_test, y_pred_proba)
-
-        logger.info(f"Model evaluation metrics:")
-        logger.info(f"Accuracy: {accuracy}")
-        logger.info(f"Precision: {precision}")
-        logger.info(f"Recall: {recall}")
-        logger.info(f"F1 Score: {f1}")
-
-        return {
-            "accuracy": float(accuracy),
-            "precision": float(precision),
-            "recall": float(recall),
-            "f1": float(f1),
-            "roc_auc_score": float(roc_auc_value),
-            "confusion_matrix": cm
-        }
     
     def explain_prediction(self, X_sample, feature_names):
         """Generate model explainability

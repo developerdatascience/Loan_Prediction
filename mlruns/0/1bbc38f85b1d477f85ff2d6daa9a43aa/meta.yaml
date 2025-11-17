@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/1bbc38f85b1d477f85ff2d6daa9a43aa/artifacts
+deleted_time: 1763398074077
+end_time: 1763395241136
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: deleted
+run_id: 1bbc38f85b1d477f85ff2d6daa9a43aa
+run_name: amusing-koi-501
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1763395238353
+status: 4
+tags: []
+user_id: harendrakumar

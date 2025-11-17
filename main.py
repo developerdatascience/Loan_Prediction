@@ -3,6 +3,7 @@ from src.mlProject.pipelines.stage_01_data_ingestion import DataIngestionPipelin
 from src.mlProject.pipelines.stage_02_data_validation import DataValidationTrainingPipeline
 from src.mlProject.pipelines.stage_03_data_transformation import DataTransformationPipeline
 from src.mlProject.pipelines.stage_04_model_trainer import ModelTrainerPipeline
+from src.mlProject.pipelines.stage_05_model_evaluation import ModelEvaluationPipeline
 
 STAGE_NAME = "Data Ingestion Stages"
 
@@ -43,6 +44,17 @@ STAGE_NAME = "Model Trainer Stage"
 try:
     logger.info(f">>>>>>>>>>>>>>>>>>>>>>>{STAGE_NAME} stage started<<<<<<<<<<<<<<<")
     obj = ModelTrainerPipeline()
+    obj.main()
+    logger.info(f">>>>>>>>>>>>>>>>>>>>>>>{STAGE_NAME} stage completed<<<<<<<<<<<<<<")
+except Exception as e:
+    logger.exception(e)
+    raise e
+
+
+STAGE_NAME = "Model Evaluation Stage"
+try:
+    logger.info(f">>>>>>>>>>>>>>>>>>>>>>>{STAGE_NAME} stage started<<<<<<<<<<<<<<<")
+    obj = ModelEvaluationPipeline()
     obj.main()
     logger.info(f">>>>>>>>>>>>>>>>>>>>>>>{STAGE_NAME} stage completed<<<<<<<<<<<<<<")
 except Exception as e:

@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/716570b5c4184c789588c83a86aed299/artifacts
+deleted_time: 1763398074078
+end_time: 1763396382827
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: deleted
+run_id: 716570b5c4184c789588c83a86aed299
+run_name: thundering-shrew-710
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1763396379836
+status: 4
+tags: []
+user_id: harendrakumar

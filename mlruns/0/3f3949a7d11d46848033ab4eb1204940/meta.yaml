@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/3f3949a7d11d46848033ab4eb1204940/artifacts
+deleted_time: 1763398074078
+end_time: 1763396223096
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: deleted
+run_id: 3f3949a7d11d46848033ab4eb1204940
+run_name: clumsy-foal-193
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1763396220243
+status: 4
+tags: []
+user_id: harendrakumar

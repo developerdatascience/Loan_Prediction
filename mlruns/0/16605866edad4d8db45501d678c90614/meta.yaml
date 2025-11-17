@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/16605866edad4d8db45501d678c90614/artifacts
+deleted_time: 1763398074079
+end_time: 1763394972776
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: deleted
+run_id: 16605866edad4d8db45501d678c90614
+run_name: traveling-finch-434
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1763394972320
+status: 4
+tags: []
+user_id: harendrakumar

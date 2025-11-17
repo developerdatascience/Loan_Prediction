@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/9c0519c0eeb24a3599f09c63c397e0e2/artifacts
+deleted_time: 1763398074089
+end_time: 1763390480123
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: deleted
+run_id: 9c0519c0eeb24a3599f09c63c397e0e2
+run_name: omniscient-ox-245
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1763390480118
+status: 4
+tags: []
+user_id: harendrakumar
