@@ -6,7 +6,6 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.model_selection import train_test_split
 from src.mlProject.entity.config_entity import ModelTrainerConfig
-from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import RandomForestClassifier
 import xgboost as xgb
 import lightgbm as lgb
@@ -30,7 +29,6 @@ class DataModelTrainer:
             target_column (str): name of the target column
         """
         self.config = config
-        self.standard_scaler = StandardScaler()
         self.model = None
 
     def divide_and_standardize_data(self) -> Tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series]:
@@ -50,9 +48,6 @@ class DataModelTrainer:
         y = data[self.config.target_column]
 
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=self.config.test_size, random_state=42, stratify=y)
-        
-        X_train = self.standard_scaler.fit_transform(X_train)
-        X_test = self.standard_scaler.transform(X_test)
         
         return X_train, X_test, y_train, y_test # type: ignore
 

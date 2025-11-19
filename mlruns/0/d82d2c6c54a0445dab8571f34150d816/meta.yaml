@@ -1,0 +1,14 @@
+artifact_uri: mlflow-artifacts:/0/d82d2c6c54a0445dab8571f34150d816/artifacts
+end_time: 1763533382978
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: d82d2c6c54a0445dab8571f34150d816
+run_name: fearless-bird-485
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1763533379826
+status: 3
+tags: []
+user_id: harendrakumar

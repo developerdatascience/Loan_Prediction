@@ -2,11 +2,8 @@ import logging
 import pandas as pd
 from scipy import stats
 from typing import List
-
-
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
-
+from sklearn.preprocessing import StandardScaler
+from src.mlProject import logger
 
 def drop_columns_having_nulls_above_threshold(
     data: pd.DataFrame, threshold: float = 50.0
@@ -139,3 +136,30 @@ def outlier_detection(data: pd.DataFrame, z_threshold: float = 3.0) -> pd.DataFr
     abs_z_scores = abs(z_scores)
     filtered_entries = (abs_z_scores < z_threshold).all(axis=1)
     return data[filtered_entries]
+
+
+def standardize_data(df: pd.DataFrame, target_column) -> pd.DataFrame:
+    """
+    Standardizes numeric columns in the DataFrame using StandardScaler while preserving the target column.
+
+    Args:
+        df (pd.DataFrame): The input DataFrame.
+        target_column (str): The name of the target column to exclude from standardization.
+
+    Returns:
+        pd.DataFrame: The DataFrame with standardized numeric columns and the target column appended.
+    """
+    logger.info(f"✅ Standardizing data using StandardScaler, excluding target column: {target_column}")
+    standard_scaler = StandardScaler()
+    df_wo_target_col = df.drop(target_column, axis=1)
+    target_col = df[target_column]
+
+    # Standardize all columns and convert back to DataFrame
+    df_scaled_array = standard_scaler.fit_transform(df_wo_target_col)
+    df_scaled = pd.DataFrame(df_scaled_array, columns=df_wo_target_col.columns, index=df_wo_target_col.index)
+    
+    # Append the target column back
+    df_scaled[target_column] = target_col.values
+    
+    logger.info(f"✅ Data standardization completed successfully.")
+    return df_scaled

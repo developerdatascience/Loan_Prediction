@@ -1,0 +1,15 @@
+creation_timestamp: 1763533382954
+current_stage: None
+deployment_job_state: null
+description: ''
+last_updated_timestamp: 1763533382954
+model_id: m-47fffbc7afb44e1a9e146c7eb5e0ccd0
+name: XGBoost
+run_id: d82d2c6c54a0445dab8571f34150d816
+run_link: ''
+source: models:/m-47fffbc7afb44e1a9e146c7eb5e0ccd0
+status: READY
+status_message: null
+storage_location: mlflow-artifacts:/0/models/m-47fffbc7afb44e1a9e146c7eb5e0ccd0/artifacts
+user_id: null
+version: 5

@@ -1,0 +1,14 @@
+artifact_uri: mlflow-artifacts:/0/eebfa4ff30224e0d996d3a4eeb267b2e/artifacts
+end_time: 1763530713646
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: eebfa4ff30224e0d996d3a4eeb267b2e
+run_name: aged-cub-311
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1763530710295
+status: 3
+tags: []
+user_id: harendrakumar

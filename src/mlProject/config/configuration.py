@@ -45,11 +45,13 @@ class ConfiguratonManager:
     
     def get_data_transformation_config(self) -> DataTransformationConfig:
         config = self.config.data_transformation
+        target_column = self.schema.TARGET_COLUMN.name
 
         create_directories([config.root_dir])
 
         return DataTransformationConfig(
             root_dir= config.root_dir,
+            target_column=target_column,
             data_path= config.data_path
         )
 

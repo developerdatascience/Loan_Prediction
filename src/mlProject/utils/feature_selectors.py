@@ -1,12 +1,10 @@
-import logging
 import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 from typing import List
 import stats
 from statsmodels.stats.outliers_influence import variance_inflation_factor
+from src.mlProject import logger
 
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
 
 
 def feature_selection(X: pd.DataFrame, y: pd.Series, threshold=0.01) -> List[str]:

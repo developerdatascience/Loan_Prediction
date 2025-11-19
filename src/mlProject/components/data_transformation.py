@@ -3,6 +3,9 @@ import os
 import pandas as pd
 from src.mlProject.entity.config_entity import DataTransformationConfig
 from sklearn.model_selection import train_test_split
+from src.mlProject.utils.utility import standardize_data
+from src.mlProject.utils.feature_selectors import  select_features_using_VIF
+from src.mlProject.utils.databalancer import DataBalancer
 from typing import Callable, List
 
 logging.basicConfig(level=logging.INFO)
@@ -53,6 +56,7 @@ class DataTransformation:
             logger.info("=================================")
             self.data = step(self.data)
         
+        
         logger.info("Data transformation completed.")
 
         return self.data
@@ -60,7 +64,13 @@ class DataTransformation:
     def train_test_split(self) -> None:
         self.data = self._run_transformation()
 
-        train, test = train_test_split(self.data)
+        selected_columns = select_features_using_VIF(data=self.data)
+        self.data = self.data[selected_columns]
+        
+        self.data = standardize_data(df=self.data, target_column=self.config.target_column)
+        balanced_data = DataBalancer(data=self.data, target_column=self.config.target_column).balance_data()
+
+        train, test = train_test_split(balanced_data)
         train.to_csv(os.path.join(self.config.root_dir, "train.csv"), index=False)
         test.to_csv(os.path.join(self.config.root_dir, "test.csv"), index=False)
 

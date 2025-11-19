@@ -20,6 +20,7 @@ class DataValidationConfig:
 @dataclass(frozen=True)
 class DataTransformationConfig:
     root_dir: Path
+    target_column: str
     data_path: Path
 
 @dataclass(frozen=True)

@@ -1,0 +1,14 @@
+artifact_uri: mlflow-artifacts:/0/32631411cf894204aea7d261d1355b59/artifacts
+end_time: 1763533484528
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 32631411cf894204aea7d261d1355b59
+run_name: treasured-bee-30
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1763533481614
+status: 3
+tags: []
+user_id: harendrakumar
